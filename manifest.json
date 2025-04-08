@@ -1,7 +1,8 @@
 {
-    "name": "iPhone PWA",
-    "short_name": "PWA",
-    "start_url": "/",
+    "name": "iPhone Test",
+    "short_name": "Test",
+    "start_url": "/Test/",
+    "scope": "/Test/",
     "display": "standalone",
     "theme_color": "#000000",
     "background_color": "#ffffff"
