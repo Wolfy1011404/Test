@@ -6,7 +6,7 @@
         <title>My iOS App</title>
         <script>
             async function fetchData() {
-                const response = await fetch('');
+                const response = await fetch('https://test-2qch.onrender.com');
                 const data = await response.json();
                 document.getElementById('data').innerText = data.message;
             }
