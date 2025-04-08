@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>My iOS App</title>
-        <link rel="manifest" href="/Test/manifest.json">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My iOS App</title>
+        <script>
+            async function fetchData() {
+                const response = await fetch('');
+                const data = await response.json();
+                document.getElementById('data').innerText = data.message;
+            }
+        </script>
+        <link rel="manifest" href="/Test/manifest.json">
     </head>
     <body>
         <h1>Hello iPhone!</h1>
-        <button onclick="alert('It is a fake app! But real enough.')">Tap Me</button>
+        <p id="data">Loading...</p>
+        <button onclick="fetchData()">Fetch Data</button>
     </body>
 </html>
