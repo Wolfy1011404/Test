@@ -13,13 +13,6 @@
     <h1>Maze Viewer</h1>
     <canvas id="mazeCanvas" width="400" height="400"</canvas>
 
-    <div style="margin-top: 20px; text-align: center;">
-        <button onclick="movePlayer(0, -1)">Up</button><br>
-        <button onclick="movePlayer(-1, 0)">Left</button>
-        <button onclick="movePlayer(1, 0)">Right</button><br>
-        <button onclick="movePlayer(0, 1)">Down</button>
-    </div>
-
     <script>
         const API_URL = "https://test-2qch.onrender.com/maze";
 
@@ -85,15 +78,6 @@
                 drawPlayer();
             }
         }
-
-        canvas.addEventListener("keydown", (e) => {
-            switch (e.key) {
-                case "ArrowUp": movePlayer(0, -1); break;
-                case "ArrowDown": movePlayer(0, 1); break;
-                case "ArrowLeft": movePlayer(-1, 0); break;
-                case "ArrowRight": movePlayer(1, 0); break;
-            }
-        });
 
         fetch(API_URL)
             .then(res => res.json())
