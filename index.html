@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scale=no" />
     <title>Maze Game</title>
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            touch-action: none;
+        }
         canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            touch-action: none;
             border: 2px solid black;
             margin-top: 20px;
         }
@@ -11,7 +24,7 @@
 </head>
 <body>
     <h1>Maze Viewer</h1>
-    <canvas id="mazeCanvas" width="400" height="400" tabindex="0" style="outline: none;"></canvas>
+    <canvas id="mazeCanvas"</canvas>
 
     <div style="margin-top: 20px; text-align: center;">
         <button onclick="movePlayer(0, -1)">Up</button><br>
