@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head><title>Maze Game</title></head>
+<head>
+    <title>Maze Game</title>
+    <style>
+        canvas {
+            border: 2px solid black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
 <body>
-    <canvas id="gameCanvas" width="400" height"400"></canvas>
+    <h1>Maze Viewer</h1>
+    <canvas id="mazeCanvas" width="400" height="400"></canvas>
+
     <script>
-        fetch('https://test-2qch.onrender.com/maze')
+        const API_URL = "https://test-2qch.onrender.com/maze";
+
+        fetch(API_URL)
             .then(res => res.json())
             .then(data => {
-                drawMaze(data.grid);
+                const grid = data.grid;
+                const size = grid.length;
+                const canvas = document.getElementById("mazeCanvas");
+                const ctx = canvas.getContext("2d");
+                const cellSize = canvas.width / size;
+
+                for (let y = 0; y < size; y++) {
+                    for (let x = 0; x < size; x++) {
+                        ctx.fillStyle = grid[y][x] === 1 ? "#000" : "#fff";
+                        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                    }
+                }
+            })
+            .catch(err => {
+                console.error("Failed to load maze:" err);
             });
-        function drawMaze(grid) {
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
-            const size = 40;
-            grid.forEach((row, y) => {
-                row.forEach((cell, x) => {
-                    ctx.fillStyle = cell === 1 ? 'black' : 'white';
-                    ctx.fileRect(x * size, y * size, size, size);
-                });
-            });
-        }
     </script>
 </body>
 </html>
