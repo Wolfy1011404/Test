@@ -11,33 +11,63 @@
 </head>
 <body>
     <h1>Maze Viewer</h1>
-    <canvas id="mazeCanvas" width="400" height="400"></canvas>
+    <canvas id="mazeCanvas" width="400" height="400" tabindex="0" style="outline: none;"></canvas>
 
     <script>
         const API_URL = "https://test-2qch.onrender.com/maze";
 
-        fetch(API_URL)
-            .then(res => {
-                console.log("Fetched maze response:", res)
-                return res.json()
-            })
-            .then(data => {
-                console.log("Maze grid data:", data)
-                const grid = data.grid;
-                const size = grid.length;
-                const canvas = document.getElementById("mazeCanvas");
-                const ctx = canvas.getContext("2d");
-                const cellSize = canvas.width / size;
+        let grid = [];
+        let player = { x: 0, y: 0 };
 
-                for (let y = 0; y < size; y++) {
-                    for (let x = 0; x < size; x++) {
-                        ctx.fillStyle = grid[y][x] === 1 ? "#000" : "#fff";
-                        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                    }
+        const canvas = document.getElementById("mazeCanvas");
+        const ctx = canvas.getContext("2d");
+        const size = 10;
+        const cellSize = canvas.width / size;
+
+        function drawMaze() {
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    ctx.fillStyle = grid[y][x] === 1 ? "#000" : "#fff";
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
                 }
-            })
-            .catch(err => {
-                console.error("Failed to load maze:", err);
+            }
+        }
+
+        function drawPlayer() {
+            ctx.fillStyle = "red";
+            ctx.fillRect(player.x * cellSize, player.y * cellSize, cellSize, cellSize);
+        }
+
+        function movePlayer(dx, dy) {
+            const newX = player.x + dx;
+            const newY = player.y + dy;
+            if (
+                newX >= 0 && newX < size &&
+                newY >= 0 && newY < size &&
+                grid[newY][newX] === 0
+            )    {
+                player.x = newX;
+                player.y = newY;
+                drawMaze()
+                drawPlayer();
+            }
+        }
+
+        canvas.addEventListener("keydown", (e) => {
+            switch (e.key) {
+                case "ArrowUp": movePlayer(0, -1); break;
+                case "ArrowDown": movePlayer(0, 1); break;
+                case "ArrowLeft": movePlayer(-1, 0); break;
+                case "ArrowRight": movePlayer(1, 0); break;
+            }
+        });
+
+        fetch(API_URL)
+            .then(res => res.json())
+            .then(data => {
+                grid = data.grid;
+                drawMaze();
+                drawPlayer();
             });
     </script>
 </body>
